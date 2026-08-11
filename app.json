@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "test-app",
+    "name": "Home Circle",
     "slug": "test-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -8,8 +8,23 @@
     "scheme": "testapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/e43f36ea-715a-42c4-8554-9133374a19b6"
+    },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yangqinjia.homecircle",
+      "buildNumber": "1",
+      "usesAppleSignIn": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Home lets you take photos to share with your family.",
+        "NSMotionUsageDescription": "Home uses motion data to share your daily step count with your family.",
+        "NSPhotoLibraryUsageDescription": "Home lets you share photos with your family.",
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -19,7 +34,10 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "output": "static",
@@ -27,6 +45,8 @@
     },
     "plugins": [
       "expo-router",
+      "expo-apple-authentication",
+      "expo-image-picker",
       [
         "expo-splash-screen",
         {
@@ -38,11 +58,20 @@
             "backgroundColor": "#000000"
           }
         }
-      ]
+      ],
+      "expo-secure-store",
+      "@react-native-community/datetimepicker"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "e43f36ea-715a-42c4-8554-9133374a19b6"
+      }
+    },
+    "owner": "michaely223"
   }
 }

@@ -1,35 +1,23 @@
 import { Tabs } from 'expo-router';
-import React from 'react';
 
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { HomeCircleTabBar } from '@/components/ui/home-circle-tab-bar';
+import { useFamilySession } from '@/hooks/use-family-session';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const { session } = useFamilySession();
+  const isFullyOnboarded = session.signedIn && session.profileComplete && Boolean(session.familyName);
 
   return (
     <Tabs
+      tabBar={(props) => <HomeCircleTabBar {...props} />}
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
-        tabBarButton: HapticTab,
       }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
+      <Tabs.Screen name="index" options={{ title: isFullyOnboarded ? 'Calendar' : 'Home' }} />
+      <Tabs.Screen name="activity" options={{ title: 'Activity', href: isFullyOnboarded ? undefined : null }} />
+      <Tabs.Screen name="photos" options={{ title: 'Photos', href: isFullyOnboarded ? undefined : null }} />
+      <Tabs.Screen name="grocery" options={{ title: 'Grocery', href: isFullyOnboarded ? undefined : null }} />
+      <Tabs.Screen name="profile" options={{ title: 'Family', href: isFullyOnboarded ? undefined : null }} />
     </Tabs>
   );
 }
